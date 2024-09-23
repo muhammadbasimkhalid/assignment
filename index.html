@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt/Decrypt Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.itsasap.com/hs-fs/hubfs/cybersecurity%20framework.gif?width=778&name=cybersecurity%20framework.gif') ;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-image:url('https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif') ;
+            padding: 20px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color:#ffff;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 10px;
+            margin: 10px 0px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 48%;
+            margin: 0 1%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        h4{
+            color: #ffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Encrypt/Decrypt Using Shift3 Algo</h2>
+        <input type="text" id="inputText" placeholder="Enter text here">
+        <div class="button-container">
+            <button onclick="encrypt()">Encrypt</button>
+            <button onclick="decrypt()">Decrypt</button>
+        </div>
+        <h4 id="result"></h4>
+    </div>
+
+    <script>
+        function encrypt() {
+            const inputText = document.getElementById('inputText').value;
+           
+            const shift = 3;
+            const result = Array.from(inputText).map(char => {
+                if (char.match(/[a-z]/i)) {
+                    const code = char.charCodeAt(0);
+                    const base = char === char.toUpperCase() ? 65 : 97;
+                    return String.fromCharCode(((code - base + shift) % 26) + base);
+                }
+                return char;
+            }).join('');
+            document.getElementById('result').innerText = `Encrypted: ${result}`;
+        }
+
+        function decrypt() {
+            const inputText = document.getElementById('inputText').value;
+ 
+            const shift = 3;
+            const result = Array.from(inputText).map(char => {
+                if (char.match(/[a-z]/i)) {
+                    const code = char.charCodeAt(0);
+                    const base = char === char.toUpperCase() ? 65 : 97;
+                    return String.fromCharCode(((code - base - shift + 26) % 26) + base);
+                }
+                return char;
+            }).join('');
+            document.getElementById('result').innerText = `Decrypted: ${result}`;
+        }
+    </script>
+</body>
+</html>
